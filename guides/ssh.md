@@ -1,5 +1,19 @@
 # How to set up SSH on Windows to connect to GitHub
 
+
+* [What is SSH & reasoning to use it for GitHub on Windows](#what-is-ssh--reasoning-to-use-it-for-github-on-windows-intro)
+* [Enable OpenSSH on Windows](#enable-openssh-on-windows)
+* [Generate SSH key](#generate-ssh-key)
+* [Upload public key to GitHub](#upload-public-key-to-github)
+* [Test SSH connection](#test-ssh-connection)
+* [Turn on SSH Agent](#turn-on-ssh-agent)
+* [Add the key to SSH Agent](#add-the-key-to-ssh-agent)
+* [Delete the file with the private part of the key](#delete-the-file-with-the-private-part-of-the-key)
+* [Test SSH connection again](#test-ssh-connection-again)
+* [Teach git to use OpenSSH](#teach-git-to-use-openssh)
+* [You're all set](#youre-all-set)
+* [Bonus: Using multiple GitHub accounts](#bonus-using-multiple-github-accounts)
+
 ## What is SSH & reasoning to use it for GitHub on Windows
 
 Git provides two ways to securely connect to remote repositories - HTTPS and SSH. How you connect depends on the URL.
@@ -169,7 +183,7 @@ Note how one entry defines an alias `github-work` for the host name `github.com`
 
 Now you can test each connection:
 
-> 🖥️ Terminal: 
+🖥️ Terminal: 
 ```
 ssh -T git@github.com
 ```
