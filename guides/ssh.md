@@ -17,8 +17,7 @@ While SSH is a familiar protocol for Linux users, it's not that common on Window
 
 Go to `Apps & features` > `Optional features` and ensure `OpenSSH Client` is installed. If it is not, use the `Add a feature` button and install it.
 
-> ⚙️ On Windows:  
->  
+⚙️ On Windows:  
 > Apps & features > Optional features: OpenSSH Client
 
 
@@ -26,7 +25,7 @@ Go to `Apps & features` > `Optional features` and ensure `OpenSSH Client` is ins
 
 Open windows terminal in your user folder (that's where it usually starts) and run the following command:
 
-> 🖥️ Terminal: C:\Users\\{YourName}>
+🖥️ Terminal: `C:\Users\{YourName}>`
 ```
 ssh-keygen
 ```
@@ -60,8 +59,7 @@ I think it's best to let each device of yours generate its own SSH key and never
 
 For the key field copy the **public** part of your key here, i. e. the content of the file with the `.pub` extension.
 
-> ⚙️ GitHub:  
->  
+⚙️ GitHub:  
 > Settings > SSH and GPG keys > New SSH key  
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title: {Something to identify your machine}  
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Key: {The public part of the generated key}  
@@ -70,7 +68,8 @@ For the key field copy the **public** part of your key here, i. e. the content o
 ## Test SSH connection
 
 In order to test the SSH connection to GitHub, open the terminal and run the command:
-> 🖥️ Terminal: 
+
+🖥️ Terminal: 
 ```
 ssh -T git@github.com
 ```
@@ -80,7 +79,8 @@ You'll see a message that the authenticity of host 'github.com' can't be establi
 After you do all that you'll see: "Permission denied (publickey)". 
 
 SSH doesn't know yet it should use that key you generated earlier. If you want to see the positive outcome now, you can specify the key in the command, but you can skip that, because further steps will eliminate the need to do it.
-> 🖥️ Terminal: 
+
+🖥️ Terminal: 
 ```
 ssh -T git@github.com -i c:\Users\{YourName}\.ssh\id_rsa
 ```
@@ -95,8 +95,7 @@ Press the `Windows` key and start typing `Services` until you see the Services a
 
 Locate `OpenSSH Authentication Agent` in the list. Set its startup type to Automatic so that it always starts with Windows. Start the service.
 
-> ⚙️ On Windows:  
->  
+⚙️ On Windows:  
 > Services > OpenSSH Authentication Agent  
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Startup type: Automatic  
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start
@@ -104,7 +103,8 @@ Locate `OpenSSH Authentication Agent` in the list. Set its startup type to Autom
 
 ## Add the key to SSH Agent
 Open windows terminal in your user folder and run the following command:
-> 🖥️ Terminal: C:\Users\\{YourName}>
+
+🖥️ Terminal: `C:\Users\{YourName}>`
 ```
 ssh-add .ssh/id_rsa
 ```
@@ -120,7 +120,7 @@ Since the private key is now securely stored in the SSH Agent, you can delete th
 ## Test SSH connection again
 You can test SSH connection to GitHub again an confirm it now properly responds with "You've successfully authenticated, but GitHub does not provide shell access".
 
-> 🖥️ Terminal: 
+🖥️ Terminal: 
 ```
 ssh -T git@github.com
 ```
@@ -129,7 +129,8 @@ ssh -T git@github.com
 ## Teach git to use OpenSSH
 
 Chances are your git uses its own embedded SSH tool, but we want it to use OpenSSH that we configured. To switch to OpenSSH use this comand:
-> 🖥️ Terminal: 
+
+🖥️ Terminal: 
 ```
 git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe
 ```
