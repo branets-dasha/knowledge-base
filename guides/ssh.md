@@ -139,3 +139,46 @@ git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe
 ## You're all set
 
 You can now grab SSH repository links from GitHub instead of HTTPS ones and use them in commands like `git clone`, and they should work without any additional authentication prompts.
+
+
+## Bonus: Using multiple GitHub accounts
+
+If you use multiple GitHub accounts you should create a seprate key for each identity (specify different key names when generating keys) and upload each key to its respective GitHub account. Add both keys to the SSH Agent.
+
+When connecting to a host via SSH, the SSH Agent will pick the first key that works and remember to use it with this host.  But since different GitHub accounts have the same host name (github.com), SSH Agent will remember the first identity it successfully connected with and keep using it, regardless of which identity has access to the repository (or maybe both have access, but you want to control which one commits the changes).
+
+To instruct the SSH Agent which key to use in each situation, create a file named `config` in the `.ssh` folder. Within the file create an entry for each GitHub account you use. Here is an example:
+
+📄 `config`
+
+```
+# Default github account: personal
+Host github.com
+   HostName github.com
+   IdentityFile ~/.ssh/github_personal_rsa
+   IdentitiesOnly yes
+   
+# Other github account: work
+Host github-work
+   HostName github.com
+   IdentityFile ~/.ssh/github_work_rsa
+   IdentitiesOnly yes
+```
+
+Note how one entry defines an alias `github-work` for the host name `github.com`. Each entry has the respective key file specified. If you've deleted the private key files, it's not a problem - the `.ssh` folder only needs to contain the `.pub` files for this to work.
+
+Now you can test each connection:
+
+> 🖥️ Terminal: 
+```
+ssh -T git@github.com
+```
+```
+ssh -T git@github-work
+```
+
+When grabbing a repo link from GitHub, substitute the host with respective alias if needed:
+
+> `git@github.com:{PersonalAccountName}/{Repository}.git`  
+>  
+> `git@github-work:{WorkAccountName}/{Repository}.git`
